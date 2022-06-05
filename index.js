@@ -10,9 +10,24 @@ const config = {
 const pool = new Pool(config);
 
 const getBooks = async() => {
-  const res = await pool.query('select * from books');
-  console.log(res.rows);
-  pool.end();
+  try{
+    const res = await pool.query('select * from student');
+    console.log(res.rows);
+    pool.end();
+  }catch(err){
+    console.log(err);
+  }
 };
-
+const insertUser = async() => {
+  const values = ['john', 'john234'];
+  const queryText = 'insert into users VALUES($1, $2)';
+  try{
+    const res = await pool.query(queryText, values);
+    console.log('Se ha añadido satisfactoriamente el usuario.')
+    pool.end()
+  }catch(err){
+    console.log(err);
+  }
+}
 getBooks();
+insertUser();
